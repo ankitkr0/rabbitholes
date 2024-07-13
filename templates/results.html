@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results for {{ topic }} - Rabbit Hole Explorer</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.2/iframeResizer.min.js"></script>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button id="themeToggle" aria-label="Toggle theme">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+    <div class="container">
+        <h1>Results for "{{ topic }}"</h1>
+        <a href="/" class="back-link">← Back to Search</a>
+        {% for platform in ['youtube', 'substack', 'medium', 'reddit'] %}
+            <section class="platform">
+                <h2>{{ platform|capitalize }}</h2>
+                <ul>
+                    {% for item in results[platform] %}
+                        <li>
+                            {% if platform == 'youtube' %}
+                                <div class="embed-container">
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ item[3] }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                </div>
+                            {% elif platform == 'reddit' %}
+                                <div class="embed-container">
+                                    <iframe id="reddit-embed-{{ loop.index }}" src="https://www.redditmedia.com/r/{{ item[1] }}/comments/{{ item[3] }}/?embed=true" width="640" height="480" frameborder="0" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+                                </div>
+                            {% else %}
+                                <a href="{{ item[2] }}" target="_blank">
+                                    <strong>{{ item[0] }}</strong>
+                                    <span>{{ item[1] }}</span>
+                                </a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        {% endfor %}
+    </div>
+    <script>
+        iFrameResize({}, '#reddit-embed-1, #reddit-embed-2, #reddit-embed-3');
+    </script>
+    <script src="/static/script.js"></script>
+</body>
+</html>

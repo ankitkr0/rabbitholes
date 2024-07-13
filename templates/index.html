@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rabbit Hole Explorer</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><text y='24' font-size='24'>🔎</text></svg>">
+</head>
+<body>
+    <div class="theme-toggle">
+        <button id="themeToggle" aria-label="Toggle theme">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+    <div class="container">
+        <h1>Rabbit Hole Explorer</h1>
+        <p class="subtitle">Dive deep into any topic with curated content from across the web</p>
+        <form id="exploreForm">
+            <input type="text" id="topic" name="topic" placeholder="Enter a topic" required>
+            <button type="submit">Explore</button>
+        </form>
+        <div class="suggested-topics">
+            <h2>Suggested Topics</h2>
+            <ul>
+                {% for topic in suggested_topics %}
+                    <li><a href="#" class="topic-suggestion">{{ topic }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div id="results" class="hidden">
+            <div id="loader" class="hidden">
+                <ul id="loaderMessages"></ul>
+            </div>
+            <div id="contentResults"></div>
+        </div>
+        <p class="disclaimer">Disclaimer: Results may vary in quality across different platforms.</p>
+    </div>
+    <footer>
+        Made by <a href="https://x.com/ankitkr0" target="_blank">ankitkr0</a>
+    </footer>
+    <script src="/static/script.js"></script>
+</body>
+</html>
